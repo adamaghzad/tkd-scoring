@@ -5,7 +5,7 @@ import { BookOpen, Check, ClipboardCheck, Download, HardDrive, ListChecks, Monit
 import { useMemo, useState } from 'react';
 import { CopyButton } from './copy-button';
 import { useLanguage } from '@/lib/i18n';
-import { checksum, checksumUrl, downloadUrl, releaseUrl } from '@/lib/site';
+import { checksum, checksumUrl, desktopVersion, downloadUrl, releaseUrl } from '@/lib/site';
 
 interface Section {
   id: string;
@@ -32,13 +32,13 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Un réseau Wi-Fi local : routeur ou point d’accès acceptant la communication entre appareils.',
         'Un ou plusieurs téléphones avec un navigateur moderne pour les juges et l’arbitre.',
         'Un écran supplémentaire en option pour le public.',
-        'Le package TKD Scoring v1.0.1 et suffisamment d’espace pour l’extraire complètement.',
+        `Le package TKD Scoring v${desktopVersion} et suffisamment d’espace pour l’extraire complètement.`,
       ] : [
         'A Windows 10 or 11 x64 computer.',
         'A local Wi-Fi network: a router or hotspot that allows client-to-client communication.',
         'One or more phones with a modern browser for judges and the referee.',
         'An optional external display for spectators.',
-        'The TKD Scoring v1.0.1 package and enough space to extract it completely.',
+        `The TKD Scoring v${desktopVersion} package and enough space to extract it completely.`,
       ],
       note: fr ? 'Le logiciel ne fournit pas de scoring par capteurs/PSS. Les juges saisissent les points depuis leurs appareils.' : 'This is not sensor/PSS scoring hardware. Judges enter scoring input from their devices.',
     },
@@ -56,7 +56,7 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Right-click the ZIP and choose “Extract All”. Do not run the EXE from inside the archive.',
       ],
       code: 'certutil -hashfile TKD-Scoring-Windows-x64.zip SHA256',
-      codeLabel: 'SHA-256 · v1.0.1',
+      codeLabel: `SHA-256 · v${desktopVersion}`,
       note: `${fr ? 'Hash attendu' : 'Expected hash'}: ${checksum}`,
     },
     {
@@ -66,17 +66,23 @@ function sections(lang: 'en' | 'fr'): Section[] {
       steps: fr ? [
         'Ouvrez le dossier extrait et lancez « TKD Scoring.exe ».',
         'Si Windows affiche un avertissement éditeur inconnu, vérifiez la provenance et le hash du package. Cette version n’est pas signée.',
+        'La page Activation affiche un code d’installation. Copiez-le et envoyez-le avec votre demande via la page Abonnement.',
+        'Après confirmation du paiement, vous recevez un fichier .tkdlicense signé pour cet ordinateur. Importez-le dans Activation.',
+        'Une licence falsifiée, expirée ou destinée à un autre PC est refusée. Après une activation valide, le scoring LAN reste hors ligne.',
         'Autorisez Node.js / node.exe sur les réseaux privés lorsque le pare-feu le demande.',
         'Attendez l’ouverture de l’opérateur. Ctrl+Shift+L affiche l’état local, les adresses LAN, les données et les logs.',
         'Créez le premier compte administrateur avec un mot de passe unique.',
       ] : [
         'Open the extracted folder and run “TKD Scoring.exe”.',
         'If Windows shows an unknown-publisher warning, verify the package source and hash. This build is unsigned.',
+        'The Activation page shows an installation code. Copy it and send it with your request through the Subscription page.',
+        'After payment confirmation, you receive a signed .tkdlicense file for that computer. Import it on the Activation page.',
+        'A tampered, expired or wrong-device license is rejected. After valid activation, LAN scoring remains offline.',
         'Allow Node.js / node.exe on Private networks when the firewall asks.',
         'Wait for the operator window. Ctrl+Shift+L opens local status, LAN addresses, data and logs.',
         'Create the initial administrator account with a unique password.',
       ],
-      note: fr ? 'Les ports 3000 et 3001 doivent être libres. Le port 3001 reste interne ; les appareils utilisent uniquement le port 3000.' : 'Ports 3000 and 3001 must be free. Port 3001 remains internal; venue devices use port 3000 only.',
+      note: fr ? 'Le téléchargement est gratuit ; le travail de tournoi exige une licence payante valide. Les ports 3000 et 3001 doivent être libres, et les appareils utilisent uniquement le port 3000.' : 'The download is free; tournament work requires a valid paid license. Ports 3000 and 3001 must be free, and venue devices use port 3000 only.',
     },
     {
       id: 'tournament',
@@ -148,11 +154,13 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Copiez tout le dossier de données vers un support indépendant.',
         'Testez régulièrement la restauration ; une sauvegarde non testée n’est pas une garantie.',
         'Après une coupure inattendue, vérifiez les matchs et horloges récupérés avant de reprendre.',
+        'Conservez aussi le dossier de licence séparé des données. Ne partagez pas votre fichier de licence : il est lié à l’ordinateur.',
       ] : [
         'Close TKD Scoring completely before a manual backup.',
         'Copy the entire data folder to independent storage.',
         'Test restoration regularly; an untested backup is not a guarantee.',
         'After an unexpected shutdown, inspect recovered matches and clocks before resuming.',
+        'Keep the separate license folder as well. Do not share your license file: it is bound to the computer.',
       ],
       code: '%APPDATA%\\TKD Scoring\\data',
       codeLabel: fr ? 'Dossier de données desktop' : 'Desktop data folder',
@@ -185,6 +193,7 @@ function sections(lang: 'en' | 'fr'): Section[] {
       intro: fr ? 'Faites cette répétition sur le matériel qui sera réellement utilisé.' : 'Rehearse on the exact hardware you will use.',
       bullets: fr ? [
         'Package et source vérifiés ; batterie PC et téléphones chargées.',
+        'Licence valide activée sur le PC utilisé ; date de renouvellement vérifiée.',
         'Match d’essai avec tous les rôles, corrections, reprises et résultat final.',
         'Sauvegarde et restauration testées.',
         'Réseau et pare-feu validés avec chaque téléphone.',
@@ -193,6 +202,7 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Validation physique Windows et gymnase effectuée avant tout usage officiel.',
       ] : [
         'Package and source verified; PC and phones charged.',
+        'Valid license activated on the event PC; renewal date checked.',
         'Test match with every role, corrections, rounds and final result.',
         'Backup and restoration tested.',
         'Network and firewall validated with every phone.',
@@ -214,7 +224,7 @@ export function GuideContent() {
     <div className="guide-progress" />
     <section className="page-hero">
       <div className="mx-auto max-w-[1440px]"><p className="eyebrow"><span />{fr ? 'DOCUMENTATION PRATIQUE' : 'PRACTICAL DOCUMENTATION'}</p><h1>{fr ? 'Du téléchargement au premier match.' : 'From download to first match.'}</h1><p>{fr ? 'Un guide complet pour installer, préparer, connecter et exploiter TKD Scoring sur votre propre réseau local.' : 'A complete guide to installing, preparing, connecting and operating TKD Scoring on your own local network.'}</p>
-        <div className="mt-7 flex flex-wrap gap-3"><a className="button-primary" href={downloadUrl}>{fr ? 'Télécharger v1.0.1' : 'Download v1.0.1'}<Download className="size-4" /></a><button className="button-secondary" type="button" onClick={() => window.print()}>{fr ? 'Imprimer le guide' : 'Print guide'}<Printer className="size-4" /></button></div>
+        <div className="mt-7 flex flex-wrap gap-3"><a className="button-primary" href={downloadUrl}>{fr ? `Télécharger v${desktopVersion}` : `Download v${desktopVersion}`}<Download className="size-4" /></a><button className="button-secondary" type="button" onClick={() => window.print()}>{fr ? 'Imprimer le guide' : 'Print guide'}<Printer className="size-4" /></button></div>
       </div>
     </section>
     <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[270px_1fr] lg:px-12 lg:py-20">
@@ -231,10 +241,10 @@ export function GuideContent() {
             {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}><Check /><p>{bullet}</p></li>)}</ul>}
             {section.code && <div className="code-block"><div className="code-label"><span>{section.codeLabel}</span><CopyButton value={section.code} /></div><code>{section.code}</code></div>}
             {section.note && <div className="guide-note"><ShieldCheck className="size-4" /><p>{section.note}</p></div>}
-            {section.id === 'download' && <div className="mt-5 flex flex-wrap gap-4 text-xs"><a href={checksumUrl} className="inline-flex items-center gap-2 text-electric hover:text-white">{fr ? 'Fichier SHA-256' : 'SHA-256 file'}<Download className="size-3.5" /></a><a href={releaseUrl} className="inline-flex items-center gap-2 text-electric hover:text-white">{fr ? 'Notes de version' : 'Release notes'}<Download className="size-3.5" /></a></div>}
+            {section.id === 'download' && <div className="mt-5 flex flex-wrap gap-4 text-xs"><a href={checksumUrl} className="inline-flex items-center gap-2 text-electric hover:text-white">{fr ? 'Fichier SHA-256' : 'SHA-256 file'}<Download className="size-3.5" /></a><a href={releaseUrl} className="inline-flex items-center gap-2 text-electric hover:text-white">{fr ? 'Notes de version' : 'Release notes'}<Download className="size-3.5" /></a><Link href="/subscription/" className="inline-flex items-center gap-2 text-electric hover:text-white">{fr ? 'Demander une licence' : 'Request a license'}<ShieldCheck className="size-3.5" /></Link></div>}
           </div>
         </section>; })}
-        <div className="guide-complete"><ListChecks className="size-7" /><div><h3>{fr ? 'Votre système est prêt pour une répétition.' : 'Your system is ready for a rehearsal.'}</h3><p>{fr ? 'Commencez par un match d’entraînement, puis choisissez la formule qui convient à votre club.' : 'Start with a practice match, then choose the plan that fits your club.'}</p><div className="mt-5 flex flex-wrap gap-3"><Link className="button-primary" href="/subscription/">{fr ? 'Voir les abonnements' : 'View subscriptions'}</Link><Link className="button-secondary" href="/">{fr ? 'Retour au produit' : 'Back to product'}</Link></div></div></div>
+        <div className="guide-complete"><ListChecks className="size-7" /><div><h3>{fr ? 'Votre système est prêt pour une répétition.' : 'Your system is ready for a rehearsal.'}</h3><p>{fr ? 'Choisissez votre formule, activez la licence, puis répétez un match complet avant l’événement.' : 'Choose your plan, activate the license, then rehearse a complete match before the event.'}</p><div className="mt-5 flex flex-wrap gap-3"><Link className="button-primary" href="/subscription/">{fr ? 'Voir les abonnements' : 'View subscriptions'}</Link><Link className="button-secondary" href="/">{fr ? 'Retour au produit' : 'Back to product'}</Link></div></div></div>
       </div>
     </div>
     <div className="guide-offline-note"><WifiOff className="size-4" />{fr ? 'Après une première visite, le shell du guide peut être conservé par le navigateur pour une consultation hors ligne.' : 'After your first visit, the guide shell can be cached by your browser for offline reading.'}<Network className="ml-2 size-4" /></div>

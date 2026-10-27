@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { checksum, desktopVersion, downloadUrl } from '../lib/site';
 
 test('product page presents the actual system and interactive score preview', async ({ page }) => {
   await page.goto('/');
@@ -54,6 +55,26 @@ test('subscription validates details and prepares real WhatsApp and email reques
   await expect(whatsapp).toHaveAttribute('href', /Atlas%20Taekwondo/);
   await expect(whatsapp).toHaveAttribute('href', /1990%20MAD/);
   await expect(email).toHaveAttribute('href', /^mailto:adam\.aghzaf@gmail\.com/);
+});
+
+test('v1.1.0 downloads and paid activation guidance stay consistent', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
+  await expect(page.getByText(`Desktop v${desktopVersion} · Windows 10/11 x64`)).toBeVisible();
+
+  await page.goto('guide/');
+  await expect(page.getByRole('link', { name: `Download v${desktopVersion}`, exact: true })).toHaveAttribute('href', downloadUrl);
+  await expect(page.getByText(checksum, { exact: false })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Request a license' })).toHaveAttribute('href', /\/subscription\/$/);
+  await page.getByRole('textbox', { name: 'Search the guide' }).fill('wrong-device');
+  await expect(page.getByRole('heading', { name: '3. First run' })).toBeVisible();
+  await expect(page.getByText(/A tampered, expired or wrong-device license is rejected/)).toBeVisible();
+
+  await page.goto('subscription/');
+  await expect(page.getByRole('heading', { name: 'Download TKD Scoring for Windows.' })).toBeVisible();
+  await expect(page.getByTestId('subscription-download')).toHaveAttribute('href', downloadUrl);
+  await expect(page.getByText('FREE INSTALLER · PAID ACTIVATION')).toBeVisible();
+  await expect(page.getByText(/Tournament work requires a signed license/)).toBeVisible();
 });
 
 test('guide remains available offline after the service worker installs', async ({ page, context }) => {

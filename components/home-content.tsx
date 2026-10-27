@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, Download, FileChartColumn, History, Monitor, MousePointer2, Network, ShieldCheck, Smartphone, Trophy, WifiOff, Zap } from 'lucide-react';
 import { ScorePreview } from './score-preview';
 import { useLanguage } from '@/lib/i18n';
-import { asset, downloadUrl } from '@/lib/site';
+import { asset, desktopVersion, downloadUrl } from '@/lib/site';
 import { plans } from '@/lib/plans';
 
 const copy = {
@@ -15,7 +15,7 @@ const copy = {
     intro: 'The complete taekwondo tournament workspace—registration, brackets, live judging, scoreboards and results—running from one Windows laptop, with or without Internet.',
     download: 'Download for Windows',
     explore: 'Explore the system',
-    v: 'Desktop v1.0.1 · Windows 10/11 x64',
+    v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['No Node installation', 'Offline LAN ready', 'Persistent SQLite data'],
     scroll: 'Scroll to discover',
     productTag: 'THE CONTROL DESK',
@@ -41,7 +41,7 @@ const copy = {
     workflowTag: 'FROM ZIP TO FIRST MATCH',
     workflowTitle: 'Four steps. Then the mat takes over.',
     workflow: [
-      ['Extract and run', 'Download the portable Windows package, extract the full folder and run TKD Scoring.exe.'],
+      ['Download, extract and activate', 'Run TKD Scoring.exe, copy your installation code and request a license. After payment confirmation, import the signed .tkdlicense file.'],
       ['Build the event', 'Create the tournament, clubs, categories and athletes. Generate the draw and schedule.'],
       ['Pair the mat', 'Share the judge or referee QR code. Devices join through the local network.'],
       ['Score with confidence', 'Start the round, manage consensus and penalties, then publish the authoritative result.'],
@@ -64,11 +64,12 @@ const copy = {
       ['Do I need to install Node.js?', 'No. The Windows desktop package includes its runtime. Extract the complete ZIP and run TKD Scoring.exe.'],
       ['Can judges use iPhones and Android phones?', 'Yes. Judges use a modern browser on the same local network. No judge app installation is required.'],
       ['Does the phone need Internet?', 'No. It needs Wi-Fi access to the host PC. A Wi-Fi network showing “No internet connection” can still work locally.'],
+      ['Is the download a free trial?', 'No. The Windows installer is free to download, but tournament work requires a paid signed license after payment confirmation. No card is collected on this website.'],
       ['Is this certified PSS or sensor scoring?', 'No. This is independent tournament and software-based judging software. It does not claim WT, KPNP or Daedo certification or sensor-based PSS equivalence.'],
     ],
     finalTag: 'YOUR NEXT MATCH STARTS HERE',
     finalTitle: 'One laptop. Your devices. A complete tournament.',
-    finalText: 'Download the desktop system or talk through your club’s setup with Adam.',
+    finalText: 'Download the Windows installer, then activate your paid desktop license after payment confirmation.',
     guide: 'Read the complete guide',
   },
   fr: {
@@ -78,7 +79,7 @@ const copy = {
     intro: 'L’espace complet pour vos tournois de taekwondo—inscriptions, tableaux, juges, scores et résultats—depuis un ordinateur Windows, avec ou sans Internet.',
     download: 'Télécharger pour Windows',
     explore: 'Découvrir le système',
-    v: 'Desktop v1.0.1 · Windows 10/11 x64',
+    v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['Aucune installation Node', 'Réseau local hors ligne', 'Données SQLite persistantes'],
     scroll: 'Faites défiler pour découvrir',
     productTag: 'LE POSTE DE CONTRÔLE',
@@ -104,7 +105,7 @@ const copy = {
     workflowTag: 'DU ZIP AU PREMIER MATCH',
     workflowTitle: 'Quatre étapes. Puis le tapis prend le relais.',
     workflow: [
-      ['Extraire et lancer', 'Téléchargez le package Windows, extrayez tout le dossier et lancez TKD Scoring.exe.'],
+      ['Télécharger, extraire et activer', 'Lancez TKD Scoring.exe, copiez le code d’installation et demandez une licence. Après confirmation du paiement, importez le fichier .tkdlicense signé.'],
       ['Créer l’événement', 'Créez tournoi, clubs, catégories et athlètes. Générez le tirage et le programme.'],
       ['Appairer le tapis', 'Partagez le QR juge ou arbitre. Les appareils rejoignent le réseau local.'],
       ['Scorer sereinement', 'Lancez la reprise, gérez consensus et pénalités, puis publiez le résultat officiel.'],
@@ -127,11 +128,12 @@ const copy = {
       ['Faut-il installer Node.js ?', 'Non. Le package Windows inclut son environnement. Extrayez tout le ZIP et lancez TKD Scoring.exe.'],
       ['Les juges peuvent-ils utiliser iPhone et Android ?', 'Oui. Un navigateur moderne sur le même réseau local suffit. Aucune application à installer.'],
       ['Le téléphone a-t-il besoin d’Internet ?', 'Non. Il doit seulement accéder au PC par Wi-Fi. Un réseau indiquant « Pas de connexion Internet » peut fonctionner localement.'],
+      ['Le téléchargement est-il un essai gratuit ?', 'Non. L’installateur Windows est gratuit à télécharger, mais le travail de tournoi exige une licence payante signée après confirmation du paiement. Aucune carte n’est collectée sur ce site.'],
       ['Est-ce un système PSS certifié ou à capteurs ?', 'Non. C’est un logiciel indépendant de tournoi et de scoring par juges. Il ne revendique aucune certification WT, KPNP ou Daedo ni équivalence PSS.'],
     ],
     finalTag: 'VOTRE PROCHAIN MATCH COMMENCE ICI',
     finalTitle: 'Un ordinateur. Vos appareils. Un tournoi complet.',
-    finalText: 'Téléchargez le système desktop ou échangez avec Adam sur l’installation de votre club.',
+    finalText: 'Téléchargez l’installateur Windows, puis activez votre licence desktop payante après confirmation du paiement.',
     guide: 'Lire le guide complet',
   },
 };

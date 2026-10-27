@@ -8,7 +8,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { useState } from 'react';
 import { useLanguage } from '@/lib/i18n';
-import { emailUrl, whatsappUrl } from '@/lib/site';
+import { desktopVersion, downloadUrl, emailUrl, whatsappUrl } from '@/lib/site';
 import { periodFor, plans, priceFor, requestMessage, type Billing, type PlanId, type RequestDetails } from '@/lib/plans';
 
 const schema = z.object({
@@ -56,6 +56,13 @@ export function SubscriptionContent() {
   return <main>
     <section className="page-hero subscription-hero"><div className="mx-auto max-w-[1440px]"><p className="eyebrow"><span />{fr ? 'ABONNEMENTS POUR CLUBS' : 'CLUB SUBSCRIPTIONS'}</p><h1>{fr ? 'Un tarif clair. Pas de surprise par match.' : 'Clear pricing. No surprise per match.'}</h1><p>{fr ? 'Commencez avec l’offre des 10 premiers clubs ou choisissez une assistance complète pour votre prochain tournoi.' : 'Start with the first-10-clubs offer or choose complete support for your next tournament.'}</p></div></section>
 
+    <section className="section-shell border-t border-white/[.07]" aria-labelledby="windows-download-title">
+      <div className="mx-auto grid max-w-6xl items-center gap-7 rounded-3xl border border-electric/25 bg-electric/[.06] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:p-10">
+        <div><p className="eyebrow"><span />{fr ? 'INSTALLATEUR GRATUIT · ACTIVATION PAYANTE' : 'FREE INSTALLER · PAID ACTIVATION'}</p><h2 id="windows-download-title" className="mt-4 text-3xl font-semibold tracking-[-.035em] text-white sm:text-4xl">{fr ? 'Téléchargez TKD Scoring pour Windows.' : 'Download TKD Scoring for Windows.'}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-white/55">{fr ? `Installez la v${desktopVersion}, puis ouvrez Activation pour copier le code de votre PC. Le travail de tournoi exige une licence signée, fournie après confirmation du paiement. Le scoring LAN fonctionne ensuite sans Internet.` : `Install v${desktopVersion}, then open Activation to copy your PC’s installation code. Tournament work requires a signed license, provided after payment confirmation. LAN scoring then works without Internet.`}</p></div>
+        <div className="flex flex-col items-start gap-3 lg:items-end"><a data-testid="subscription-download" className="button-primary" href={downloadUrl}>{fr ? 'Télécharger pour Windows' : 'Download for Windows'}<Download className="size-4" /></a><span className="text-[10px] font-medium uppercase tracking-[.14em] text-white/35">v{desktopVersion} · Windows 10/11 x64 · ZIP</span><Link href="/guide/" className="inline-flex items-center gap-2 text-xs text-electric hover:text-white">{fr ? 'Guide d’installation et d’activation' : 'Installation and activation guide'}<ArrowUpRight className="size-3.5" /></Link></div>
+      </div>
+    </section>
+
     <section className="subscription-section">
       <div className="billing-toggle" aria-label={fr ? 'Période de facturation' : 'Billing period'}>
         <button type="button" className={billing === 'monthly' ? 'active' : ''} onClick={() => selectBilling('monthly')} aria-pressed={billing === 'monthly'}>{fr ? 'Mensuel' : 'Monthly'}</button>
@@ -98,7 +105,7 @@ export function SubscriptionContent() {
     </section>}
 
     <section className="section-shell border-t border-white/[.07]">
-      <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-3"><div className="subscription-assurance"><Users /><h3>{fr ? 'Sans coût par utilisateur' : 'No per-user fee'}</h3><p>{fr ? 'Pas de supplément par athlète, juge ou match.' : 'No extra charge per athlete, judge or match.'}</p></div><div className="subscription-assurance"><Download /><h3>{fr ? 'Testez avant de décider' : 'Try before you decide'}</h3><p>{fr ? 'Demandez une démonstration sur un match d’entraînement.' : 'Request a demonstration during a practice match.'}</p></div><div className="subscription-assurance"><ShieldCheck /><h3>{fr ? 'Vos données restent locales' : 'Your data stays local'}</h3><p>{fr ? 'Le mode desktop conserve le tournoi sur votre PC.' : 'Desktop mode keeps tournament data on your PC.'}</p></div></div>
+      <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-3"><div className="subscription-assurance"><Users /><h3>{fr ? 'Sans coût par utilisateur' : 'No per-user fee'}</h3><p>{fr ? 'Pas de supplément par athlète, juge ou match.' : 'No extra charge per athlete, judge or match.'}</p></div><div className="subscription-assurance"><Download /><h3>{fr ? 'Installation simple' : 'Simple installation'}</h3><p>{fr ? 'Téléchargement gratuit ; licence payante signée après confirmation du paiement.' : 'Free download; paid signed license after payment confirmation.'}</p></div><div className="subscription-assurance"><ShieldCheck /><h3>{fr ? 'Vos données restent locales' : 'Your data stays local'}</h3><p>{fr ? 'Le mode desktop conserve le tournoi sur votre PC.' : 'Desktop mode keeps tournament data on your PC.'}</p></div></div>
       <div className="mt-12 text-center"><Link href="/guide/" className="button-secondary">{fr ? 'Lire le guide avant l’installation' : 'Read the guide before setup'}<ArrowUpRight className="size-4" /></Link></div>
     </section>
   </main>;
