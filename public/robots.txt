@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adamaghzad.github.io/tkd-scoring/sitemap.xml

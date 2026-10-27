@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound() { return <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-6 text-center"><p className="eyebrow justify-center"><span />404</p><h1 className="text-5xl font-black text-white">This mat is empty.</h1><p className="mt-5 text-white/50">The page you requested does not exist.</p><Link className="button-primary mt-8" href="/">Return to TKD Scoring</Link></main>; }

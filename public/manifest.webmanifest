@@ -1,0 +1,11 @@
+{
+  "name": "TKD Scoring — Product and Guide",
+  "short_name": "TKD Scoring",
+  "description": "Product presentation, setup guide and club subscriptions for TKD Scoring.",
+  "start_url": "/tkd-scoring/",
+  "scope": "/tkd-scoring/",
+  "display": "standalone",
+  "background_color": "#07090f",
+  "theme_color": "#07090f",
+  "icons": [{ "src": "/tkd-scoring/assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
