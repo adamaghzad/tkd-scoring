@@ -57,7 +57,7 @@ test('subscription validates details and prepares real WhatsApp and email reques
   await expect(email).toHaveAttribute('href', /^mailto:adam\.aghzaf@gmail\.com/);
 });
 
-test('v1.1.0 downloads and paid activation guidance stay consistent', async ({ page }) => {
+test('v1.2.0 downloads and paid activation guidance stay consistent', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
   await expect(page.getByText(`Desktop v${desktopVersion} · Windows 10/11 x64`)).toBeVisible();
