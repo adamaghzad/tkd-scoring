@@ -6,7 +6,7 @@ export const desktopVersion = '1.2.0';
 export const releaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v${desktopVersion}`;
 export const downloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/desktop-v${desktopVersion}/TKD-Scoring-Windows-x64.zip`;
 export const checksumUrl = `${downloadUrl}.sha256`;
-export const checksum = '18198c8cb373b045b0f6a055998e81dc4d6a7f338b8b829cd426b3a60b7b179c';
+export const checksum = '3bca16e98dd1c2978c314beec0aae657eb87ce60b7a2532d4802a996251793f7';
 export const salesEmail = 'adam.aghzaf@gmail.com';
 export const salesWhatsApp = '212614192699';
 
