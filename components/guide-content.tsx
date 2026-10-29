@@ -136,6 +136,8 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Les corrections nécessitent une autorisation et un motif, puis restent dans l’audit.',
         'Les points affichés pendant le jeu sont ceux de la reprise courante. Les reprises gagnées apparaissent pendant le repos.',
         'Le résultat final est publié après la transition autorisée du match.',
+        'Public TV ouvre l’affichage du tapis dans une fenêtre séparée sans fermer la page opérateur. En plein écran, tous les contrôles superposés sont masqués.',
+        'M coupe/rétablit le son, F inverse les côtés, F11 active/quitte le plein écran et Échap en sort. Après un résultat, W affiche/masque l’écran d’attente ; la reprise d’un match réel restaure automatiquement le score.',
       ] : [
         'Default values: punch +1, body +2, head +3, turning body +4 and turning head +6; verify your event configuration.',
         'With multiple judges, proposals wait for the configured consensus. Confirmations remain visible on the display.',
@@ -143,6 +145,8 @@ function sections(lang: 'en' | 'fr'): Section[] {
         'Corrections require authorization and a reason, then remain in the audit trail.',
         'Points shown during play belong to the current round. Round wins appear during rest.',
         'The final result is published after the authorized match transition.',
+        'Public TV opens the mat display in a separate window without closing the operator page. Fullscreen hides every overlay control.',
+        'M toggles sound, F flips the sides, F11 toggles fullscreen and Esc exits. After a result, W toggles the waiting screen; an authoritative live match automatically restores the scoreboard.',
       ],
     },
     {

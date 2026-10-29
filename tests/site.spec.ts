@@ -57,7 +57,7 @@ test('subscription validates details and prepares real WhatsApp and email reques
   await expect(email).toHaveAttribute('href', /^mailto:adam\.aghzaf@gmail\.com/);
 });
 
-test('v1.2.0 downloads and paid activation guidance stay consistent', async ({ page }) => {
+test('v1.2.1 downloads and paid activation guidance stay consistent', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
   await expect(page.getByText(`Desktop v${desktopVersion} · Windows 10/11 x64`)).toBeVisible();
@@ -66,6 +66,9 @@ test('v1.2.0 downloads and paid activation guidance stay consistent', async ({ p
   await expect(page.getByRole('link', { name: `Download v${desktopVersion}`, exact: true })).toHaveAttribute('href', downloadUrl);
   await expect(page.getByText(checksum, { exact: false })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Request a license' })).toHaveAttribute('href', /\/subscription\/$/);
+  await page.getByRole('textbox', { name: 'Search the guide' }).fill('F11');
+  await expect(page.getByRole('heading', { name: '6. Run a match' })).toBeVisible();
+  await expect(page.getByText(/F11 toggles fullscreen/)).toBeVisible();
   await page.getByRole('textbox', { name: 'Search the guide' }).fill('wrong-device');
   await expect(page.getByRole('heading', { name: '3. First run' })).toBeVisible();
   await expect(page.getByText(/A tampered, expired or wrong-device license is rejected/)).toBeVisible();
