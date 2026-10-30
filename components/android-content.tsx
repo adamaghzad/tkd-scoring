@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { AlertTriangle, ArrowUpRight, Check, Download, HardDrive, Network, ShieldCheck, Smartphone, Wifi } from 'lucide-react';
 import { CopyButton } from './copy-button';
 import { useLanguage } from '@/lib/i18n';
-import { androidChecksum, androidChecksumUrl, androidDownloadUrl, androidReleaseUrl, androidVersion } from '@/lib/site';
+import { androidApkFilename, androidChecksum, androidChecksumUrl, androidDownloadUrl, androidReleaseUrl, androidVersion } from '@/lib/site';
 
 const copy = {
   en: {
@@ -13,15 +13,16 @@ const copy = {
     intro: 'Use an Android phone as the local tournament host for the operator, judge, referee and public-display browsers. This package is provided for installation testing and feedback.',
     download: 'Download Android APK',
     guide: 'Windows installation guide',
-    meta: `Android ${androidVersion} · arm64-v8a · Android 7.0+`,
+    meta: `Android ${androidVersion} · universal ARM (32-bit + 64-bit) · Android 7.0+`,
     warningTitle: 'Validation only — not a production release.',
     warning: 'This APK is debug-signed and has not passed physical-phone, hotspot, background, battery, restart, backup/restore or venue-reliability validation. Do not use it as the only scoring system for a live event.',
     installTitle: '1. Install the APK',
-    installIntro: 'Install directly on the Android phone that will host the tournament. No Termux, Node installation, laptop or second server is required.',
+    installIntro: 'Install directly on the Android phone that will host the tournament. The universal APK includes 32-bit and 64-bit ARM runtimes; Android 6 and older are not supported. No Termux, Node installation, laptop or second server is required.',
     installSteps: [
       'Tap Download Android APK above. If you are on Windows, you can instead copy the APK to the phone with a USB cable.',
-      'On the phone, open Files or Downloads and tap TKD-Scoring-Android-arm64-validation-debug.apk.',
+      `On the phone, open Files or Downloads and tap ${androidApkFilename}.`,
       'If Android blocks the installation, allow Install unknown apps for the browser or file manager you are using, then tap Install.',
+      'If Android reports a signature conflict with an earlier validation build, stop that host, back up its data, uninstall the earlier validation build, then install this package.',
       'Open TKD Scoring and keep its foreground host notification visible while testing.',
       'Activate a valid device-bound license when prompted. A license issued for another phone or installation cannot be reused.',
     ],
@@ -63,15 +64,16 @@ const copy = {
     intro: 'Utilisez un téléphone Android comme hôte local pour l’opérateur, les juges, l’arbitre et les écrans publics. Ce package est fourni pour tester l’installation et recueillir vos retours.',
     download: 'Télécharger l’APK Android',
     guide: 'Guide d’installation Windows',
-    meta: `Android ${androidVersion} · arm64-v8a · Android 7.0+`,
+    meta: `Android ${androidVersion} · ARM universel (32 bits + 64 bits) · Android 7.0+`,
     warningTitle: 'Validation uniquement — pas une version de production.',
     warning: 'Cet APK est signé avec une clé de débogage et n’a pas encore validé les tests sur téléphone, point d’accès, arrière-plan, batterie, redémarrage, sauvegarde/restauration ou gymnase. Ne l’utilisez pas comme unique système de scoring lors d’un événement.',
     installTitle: '1. Installer l’APK',
-    installIntro: 'Installez-le directement sur le téléphone Android qui hébergera le tournoi. Termux, Node, un ordinateur ou un second serveur ne sont pas nécessaires.',
+    installIntro: 'Installez-le directement sur le téléphone Android qui hébergera le tournoi. L’APK universel contient les runtimes ARM 32 bits et 64 bits ; Android 6 et les versions antérieures ne sont pas compatibles. Termux, Node, un ordinateur ou un second serveur ne sont pas nécessaires.',
     installSteps: [
       'Touchez Télécharger l’APK Android ci-dessus. Sous Windows, vous pouvez aussi copier l’APK sur le téléphone avec un câble USB.',
-      'Sur le téléphone, ouvrez Fichiers ou Téléchargements puis touchez TKD-Scoring-Android-arm64-validation-debug.apk.',
+      `Sur le téléphone, ouvrez Fichiers ou Téléchargements puis touchez ${androidApkFilename}.`,
       'Si Android bloque l’installation, autorisez Installer des applications inconnues pour le navigateur ou le gestionnaire de fichiers utilisé, puis touchez Installer.',
+      'Si Android signale un conflit de signature avec une ancienne version de validation, arrêtez cet hôte, sauvegardez ses données, désinstallez l’ancienne version de validation, puis installez ce package.',
       'Ouvrez TKD Scoring et gardez la notification d’hôte au premier plan visible pendant les tests.',
       'Activez une licence valide liée à l’appareil lorsque demandé. Une licence délivrée pour un autre téléphone ou une autre installation ne peut pas être réutilisée.',
     ],

@@ -11,9 +11,9 @@ describe('desktop release metadata', () => {
   });
 
   it('keeps the Android validation APK separate from the stable Windows release', () => {
-    expect(androidVersion).toBe('0.1.0-validation');
-    expect(androidReleaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/android-v0.1.0-validation');
-    expect(androidDownloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/android-v0.1.0-validation/TKD-Scoring-Android-arm64-validation-debug.apk');
+    expect(androidVersion).toBe('0.1.1-validation');
+    expect(androidReleaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/android-v0.1.1-validation');
+    expect(androidDownloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/android-v0.1.1-validation/TKD-Scoring-Android-universal-validation-debug.apk');
     expect(androidChecksumUrl).toBe(`${androidDownloadUrl}.sha256`);
     expect(androidChecksum).toMatch(/^[a-f0-9]{64}$/);
     expect(androidDownloadUrl).not.toBe(downloadUrl);
