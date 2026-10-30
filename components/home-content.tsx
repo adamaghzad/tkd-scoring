@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, Download, FileChartColumn, History, Monitor, MousePointer2, Network, ShieldCheck, Smartphone, Trophy, WifiOff, Zap } from 'lucide-react';
 import { ScorePreview } from './score-preview';
 import { useLanguage } from '@/lib/i18n';
-import { asset, desktopVersion, downloadUrl } from '@/lib/site';
+import { androidDownloadUrl, asset, desktopVersion, downloadUrl } from '@/lib/site';
 import { plans } from '@/lib/plans';
 
 const copy = {
@@ -14,6 +14,7 @@ const copy = {
     heroB: 'One source of truth.',
     intro: 'The complete taekwondo tournament workspace—registration, brackets, live judging, scoreboards and results—running from one Windows laptop, with or without Internet.',
     download: 'Download for Windows',
+    android: 'Install Android (validation)',
     explore: 'Explore the system',
     v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['No Node installation', 'Offline LAN ready', 'Persistent SQLite data'],
@@ -78,6 +79,7 @@ const copy = {
     heroB: 'Une seule source de vérité.',
     intro: 'L’espace complet pour vos tournois de taekwondo—inscriptions, tableaux, juges, scores et résultats—depuis un ordinateur Windows, avec ou sans Internet.',
     download: 'Télécharger pour Windows',
+    android: 'Installer Android (validation)',
     explore: 'Découvrir le système',
     v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['Aucune installation Node', 'Réseau local hors ligne', 'Données SQLite persistantes'],
@@ -152,8 +154,9 @@ export function HomeContent() {
           <p className="eyebrow hero-enter"><span />{c.eyebrow}</p>
           <h1 className="hero-title hero-enter hero-delay-one"><span>{c.heroA}</span><span className="hero-gradient">{c.heroB}</span></h1>
           <p className="hero-intro hero-enter hero-delay-two">{c.intro}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row hero-enter hero-delay-two">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap hero-enter hero-delay-two">
             <a className="button-primary" href={downloadUrl}>{c.download}<Download className="size-4" /></a>
+            <a className="button-secondary" href={androidDownloadUrl}>{c.android}<Smartphone className="size-4" /></a>
             <a className="button-secondary" href="#system">{c.explore}<ArrowDown className="size-4" /></a>
           </div>
           <p className="mt-4 text-[10px] font-medium uppercase tracking-[.14em] text-white/35">{c.v}</p>

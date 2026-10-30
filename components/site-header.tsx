@@ -9,8 +9,8 @@ import { useLanguage } from '@/lib/i18n';
 import { downloadUrl } from '@/lib/site';
 
 const copy = {
-  en: { product: 'Product', guide: 'Guide', pricing: 'Subscription', download: 'Download', open: 'Open navigation', close: 'Close navigation' },
-  fr: { product: 'Produit', guide: 'Guide', pricing: 'Abonnement', download: 'Télécharger', open: 'Ouvrir la navigation', close: 'Fermer la navigation' },
+  en: { product: 'Product', android: 'Android', guide: 'Guide', pricing: 'Subscription', download: 'Download', open: 'Open navigation', close: 'Close navigation' },
+  fr: { product: 'Produit', android: 'Android', guide: 'Guide', pricing: 'Abonnement', download: 'Télécharger', open: 'Ouvrir la navigation', close: 'Fermer la navigation' },
 };
 
 export function SiteHeader() {
@@ -20,6 +20,7 @@ export function SiteHeader() {
   const c = copy[lang];
   const links = [
     { href: '/', label: c.product },
+    { href: '/android/', label: c.android },
     { href: '/guide/', label: c.guide },
     { href: '/subscription/', label: c.pricing },
   ];

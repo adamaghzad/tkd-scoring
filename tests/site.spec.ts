@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { checksum, desktopVersion, downloadUrl } from '../lib/site';
+import { androidChecksum, androidDownloadUrl, checksum, desktopVersion, downloadUrl } from '../lib/site';
 
 test('product page presents the actual system and interactive score preview', async ({ page }) => {
   await page.goto('/');
@@ -12,6 +12,20 @@ test('product page presents the actual system and interactive score preview', as
   await page.getByRole('button', { name: 'Next exchange' }).click();
   await expect(score).toHaveText('06');
   await expect(page.locator('img').evaluateAll((images) => (images as HTMLImageElement[]).every((image) => image.complete && image.naturalWidth > 0))).toBeTruthy();
+});
+
+test('Android validation install is linked without replacing the Windows package', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Install Android (validation)', exact: true })).toHaveAttribute('href', androidDownloadUrl);
+  await expect(page.getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
+  await page.goto('android/');
+  await expect(page.getByRole('heading', { name: 'Install TKD Scoring on Android.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Download Android APK', exact: true })).toHaveAttribute('href', androidDownloadUrl);
+  await expect(page.getByText('Validation only — not a production release.')).toBeVisible();
+  await expect(page.getByText(androidChecksum, { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'FR', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Installer TKD Scoring sur Android.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Télécharger l’APK Android', exact: true })).toHaveAttribute('href', androidDownloadUrl);
 });
 
 test('French language persists across product and guide pages', async ({ page }) => {
