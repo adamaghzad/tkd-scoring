@@ -21,6 +21,7 @@ test('Android validation install is linked without replacing the Windows package
   await page.goto('android/');
   await expect(page.getByRole('heading', { name: 'Install TKD Scoring on Android.' })).toBeVisible();
   await expect(page.getByText(/universal ARM \(32-bit \+ 64-bit\)/)).toBeVisible();
+  await expect(page.getByText(/fixes the 0\.1\.1 .* extraction error/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download Android APK', exact: true })).toHaveAttribute('href', androidDownloadUrl);
   await expect(page.getByText('Validation only — not a production release.')).toBeVisible();
   await expect(page.getByText(androidChecksum, { exact: true })).toBeVisible();

@@ -1,4 +1,4 @@
-const CACHE = 'tkd-scoring-site-v4';
+const CACHE = 'tkd-scoring-site-v5';
 const ROOT = '/tkd-scoring';
 const SHELL = [`${ROOT}/`, `${ROOT}/android/`, `${ROOT}/guide/`, `${ROOT}/subscription/`, `${ROOT}/assets/icon.svg`];
 self.addEventListener('install', (event) => { event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting())); });
