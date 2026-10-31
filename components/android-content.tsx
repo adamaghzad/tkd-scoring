@@ -17,7 +17,7 @@ const copy = {
     warningTitle: 'Validation only — not a production release.',
     warning: 'This APK is debug-signed and has not passed physical-phone, hotspot, background, battery, restart, backup/restore or venue-reliability validation. Do not use it as the only scoring system for a live event.',
     installTitle: '1. Install the APK',
-    installIntro: `Install directly on the Android phone that will host the tournament. Version ${androidVersion} fixes the 0.1.1 “bundled Android runtime is incomplete” extraction error. The universal APK includes 32-bit and 64-bit ARM runtimes; Android 6 and older are not supported. No Termux, Node installation, laptop or second server is required.`,
+    installIntro: `Install directly on the Android phone that will host the tournament. Version ${androidVersion} fixes the 0.1.1 “bundled Android runtime is incomplete” extraction error and makes the complete public scoreboard fit portrait, landscape and desktop screens. The universal APK includes 32-bit and 64-bit ARM runtimes; Android 6 and older are not supported. No Termux, Node installation, laptop or second server is required.`,
     installSteps: [
       'Tap Download Android APK above. If you are on Windows, you can instead copy the APK to the phone with a USB cable.',
       `On the phone, open Files or Downloads and tap ${androidApkFilename}.`,
@@ -68,7 +68,7 @@ const copy = {
     warningTitle: 'Validation uniquement — pas une version de production.',
     warning: 'Cet APK est signé avec une clé de débogage et n’a pas encore validé les tests sur téléphone, point d’accès, arrière-plan, batterie, redémarrage, sauvegarde/restauration ou gymnase. Ne l’utilisez pas comme unique système de scoring lors d’un événement.',
     installTitle: '1. Installer l’APK',
-    installIntro: `Installez-le directement sur le téléphone Android qui hébergera le tournoi. La version ${androidVersion} corrige l’erreur d’extraction « bundled Android runtime is incomplete » de la version 0.1.1. L’APK universel contient les runtimes ARM 32 bits et 64 bits ; Android 6 et les versions antérieures ne sont pas compatibles. Termux, Node, un ordinateur ou un second serveur ne sont pas nécessaires.`,
+    installIntro: `Installez-le directement sur le téléphone Android qui hébergera le tournoi. La version ${androidVersion} corrige l’erreur d’extraction « bundled Android runtime is incomplete » de la version 0.1.1 et adapte tout le tableau de score public aux écrans en portrait, paysage et ordinateur. L’APK universel contient les runtimes ARM 32 bits et 64 bits ; Android 6 et les versions antérieures ne sont pas compatibles. Termux, Node, un ordinateur ou un second serveur ne sont pas nécessaires.`,
     installSteps: [
       'Touchez Télécharger l’APK Android ci-dessus. Sous Windows, vous pouvez aussi copier l’APK sur le téléphone avec un câble USB.',
       `Sur le téléphone, ouvrez Fichiers ou Téléchargements puis touchez ${androidApkFilename}.`,
