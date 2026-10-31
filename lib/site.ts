@@ -6,13 +6,13 @@ export const desktopVersion = '1.2.3';
 export const releaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v${desktopVersion}`;
 export const downloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/desktop-v${desktopVersion}/TKD-Scoring-Windows-x64.zip`;
 export const checksumUrl = `${downloadUrl}.sha256`;
-export const checksum = '71ca34800af1802cc77c6f685cb1bc9e09d6b086b86d12bec5051893447e2269';
+export const checksum = '98530f39b3d539b8d7756a013d027a28fbe3ea36f63f1102f81646c7231e422f';
 export const androidVersion = '0.1.4-validation';
 export const androidApkFilename = 'TKD-Scoring-Android-universal-validation-debug.apk';
 export const androidReleaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/android-v${androidVersion}`;
 export const androidDownloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/android-v${androidVersion}/${androidApkFilename}`;
 export const androidChecksumUrl = `${androidDownloadUrl}.sha256`;
-export const androidChecksum = 'f78bd7e413593c01b7e48a7576395c47abf5838359659c580c60e0a1630cfac4';
+export const androidChecksum = 'c7ec6fcdff35a7b067c4779dfd2f69a2067d1cdc25064012976b419ea745f303';
 export const salesEmail = 'adam.aghzaf@gmail.com';
 export const salesWhatsApp = '212614192699';
 
