@@ -3,17 +3,17 @@ import { androidChecksum, androidChecksumUrl, androidDownloadUrl, androidRelease
 
 describe('desktop release metadata', () => {
   it('points every public download to the licensed Windows release', () => {
-    expect(desktopVersion).toBe('1.2.2');
-    expect(releaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v1.2.2');
-    expect(downloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/desktop-v1.2.2/TKD-Scoring-Windows-x64.zip');
+    expect(desktopVersion).toBe('1.2.3');
+    expect(releaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v1.2.3');
+    expect(downloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/desktop-v1.2.3/TKD-Scoring-Windows-x64.zip');
     expect(checksumUrl).toBe(`${downloadUrl}.sha256`);
     expect(checksum).toMatch(/^[a-f0-9]{64}$/);
   });
 
   it('keeps the Android validation APK separate from the stable Windows release', () => {
-    expect(androidVersion).toBe('0.1.3-validation');
-    expect(androidReleaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/android-v0.1.3-validation');
-    expect(androidDownloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/android-v0.1.3-validation/TKD-Scoring-Android-universal-validation-debug.apk');
+    expect(androidVersion).toBe('0.1.4-validation');
+    expect(androidReleaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/android-v0.1.4-validation');
+    expect(androidDownloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/android-v0.1.4-validation/TKD-Scoring-Android-universal-validation-debug.apk');
     expect(androidChecksumUrl).toBe(`${androidDownloadUrl}.sha256`);
     expect(androidChecksum).toMatch(/^[a-f0-9]{64}$/);
     expect(androidDownloadUrl).not.toBe(downloadUrl);

@@ -21,7 +21,8 @@ test('Android validation install is linked without replacing the Windows package
   await page.goto('android/');
   await expect(page.getByRole('heading', { name: 'Install TKD Scoring on Android.' })).toBeVisible();
   await expect(page.getByText(/universal ARM \(32-bit \+ 64-bit\)/)).toBeVisible();
-  await expect(page.getByText(/fixes the 0\.1\.1 .* extraction error/)).toBeVisible();
+  await expect(page.getByText(/adds side-specific Instant Video Replay/)).toBeVisible();
+  await expect(page.getByText(/retaining the 0\.1\.1 runtime-extraction fix/)).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download Android APK', exact: true })).toHaveAttribute('href', androidDownloadUrl);
   await expect(page.getByText('Validation only — not a production release.')).toBeVisible();
   await expect(page.getByText(androidChecksum, { exact: true })).toBeVisible();
@@ -73,7 +74,7 @@ test('subscription validates details and prepares real WhatsApp and email reques
   await expect(email).toHaveAttribute('href', /^mailto:adam\.aghzaf@gmail\.com/);
 });
 
-test('v1.2.2 downloads and paid activation guidance stay consistent', async ({ page }) => {
+test('v1.2.3 downloads and paid activation guidance stay consistent', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
   await expect(page.getByText(`Desktop v${desktopVersion} · Windows 10/11 x64`)).toBeVisible();
