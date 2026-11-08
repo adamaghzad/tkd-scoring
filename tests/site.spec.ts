@@ -1,11 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { androidChecksum, androidDownloadUrl, checksum, desktopVersion, downloadUrl } from '../lib/site';
 
-test('product page presents the animated hero with athlete image', async ({ page }) => {
+test('product page presents the actual system and interactive score preview', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'The match in action. Every point. Analyzed.' })).toBeVisible();
-  await expect(page.locator('img[alt="Taekwondo athlete in action"]')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Every point. One source of truth.' })).toBeVisible();
+  await expect(page.getByLabel('Animated scoreboard preview')).toBeVisible();
   await expect(page.locator('img[alt="Actual TKD Scoring tournament dashboard"]')).toBeVisible();
+  await expect(page.locator('img[alt="Actual mobile judge controller"]')).toBeVisible();
+  const score = page.locator('.score-blue .score-number');
+  await expect(score).toHaveText('05');
+  await page.getByRole('button', { name: 'Next exchange' }).click();
+  await expect(score).toHaveText('06');
   await expect(page.locator('img').evaluateAll((images) => (images as HTMLImageElement[]).every((image) => image.complete && image.naturalWidth > 0))).toBeTruthy();
 });
 
@@ -29,7 +34,7 @@ test('Android validation install is linked without replacing the Windows package
 test('French language persists across product and guide pages', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'FR', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Le match en action. Chaque point. Analysé.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Chaque point. Une seule source de vérité.' })).toBeVisible();
   await page.goto('guide/');
   await expect(page.getByRole('heading', { name: 'Du téléchargement au premier match.' })).toBeVisible();
   await expect(page.getByRole('heading', { name: '8. Résoudre un timeout téléphone' })).toBeVisible();
