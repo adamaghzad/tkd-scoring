@@ -1,14 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { androidChecksum, androidDownloadUrl, checksum, desktopVersion, downloadUrl } from '../lib/site';
 
-test('product page presents the animated hero and scoreboard', async ({ page }) => {
+test('product page presents the animated hero with athlete image', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Every match. Analyzed in seconds.' })).toBeVisible();
-  await expect(page.getByText('PRO', { exact: true })).toBeVisible();
-  await expect(page.locator('.scoreboard-card')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'The match in action. Every point. Analyzed.' })).toBeVisible();
+  await expect(page.locator('img[alt="Taekwondo athlete in action"]')).toBeVisible();
   await expect(page.locator('img[alt="Actual TKD Scoring tournament dashboard"]')).toBeVisible();
-  await expect(page.locator('.scoreboard-blue .scoreboard-number')).toHaveText('06');
-  await expect(page.locator('.scoreboard-red .scoreboard-number')).toHaveText('04');
   await expect(page.locator('img').evaluateAll((images) => (images as HTMLImageElement[]).every((image) => image.complete && image.naturalWidth > 0))).toBeTruthy();
 });
 
@@ -32,7 +29,7 @@ test('Android validation install is linked without replacing the Windows package
 test('French language persists across product and guide pages', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'FR', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Chaque match. Analysé en quelques secondes.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Le match en action. Chaque point. Analysé.' })).toBeVisible();
   await page.goto('guide/');
   await expect(page.getByRole('heading', { name: 'Du téléchargement au premier match.' })).toBeVisible();
   await expect(page.getByRole('heading', { name: '8. Résoudre un timeout téléphone' })).toBeVisible();

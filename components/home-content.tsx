@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
-  Activity,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -28,8 +27,8 @@ import { plans } from '@/lib/plans';
 const copy = {
   en: {
     eyebrow: 'LOCAL-FIRST TOURNAMENT CONTROL',
-    heroA: 'Every match.',
-    heroB: 'Analyzed in seconds.',
+    heroA: 'The match in action.',
+    heroB: 'Every point. Analyzed.',
     pro: 'PRO',
     proSub: 'Club & team analysis',
     intro:
@@ -40,7 +39,7 @@ const copy = {
     explore: 'Explore the system',
     v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['No Node installation', 'Offline LAN ready', 'Persistent SQLite data'],
-    scroll: 'Scroll to discover',
+    scroll: 'Scroll down',
     productTag: 'THE CONTROL DESK',
     productTitle: 'A complete tournament, not a disconnected scoring remote.',
     productText:
@@ -181,8 +180,8 @@ const copy = {
   },
   fr: {
     eyebrow: 'GESTION DE TOURNOI LOCAL-FIRST',
-    heroA: 'Chaque match.',
-    heroB: 'Analysé en quelques secondes.',
+    heroA: 'Le match en action.',
+    heroB: 'Chaque point. Analysé.',
     pro: 'PRO',
     proSub: 'Analyse club et équipe',
     intro:
@@ -193,7 +192,7 @@ const copy = {
     explore: 'Découvrir le système',
     v: `Desktop v${desktopVersion} · Windows 10/11 x64`,
     proof: ['Aucune installation Node', 'Réseau local hors ligne', 'Données SQLite persistantes'],
-    scroll: 'Faites défiler pour découvrir',
+    scroll: 'Faites défiler',
     productTag: 'LE POSTE DE CONTRÔLE',
     productTitle: 'Un tournoi complet, pas une simple télécommande de score.',
     productText:
@@ -304,7 +303,7 @@ const copy = {
       ],
       [
         'Le téléphone a-t-il besoin d’Internet ?',
-        'Non. Il doit seulement accéder au PC par Wi-Fi. Un réseau indiquant « Pas de connexion Internet » peut fonctionner localement.',
+        'No. Il doit seulement accéder au PC par Wi-Fi. Un réseau indiquant « Pas de connexion Internet » peut fonctionner localement.',
       ],
       [
         'Le téléchargement est-il un essai gratuit ?',
@@ -329,8 +328,6 @@ const copy = {
   },
 } as const;
 
-const techniqueChips = ['Dolyo +2', 'Neryo +3', 'Dwi +4', 'Gam-jeom', '360° +4', 'Yumruk +1'];
-
 const statFrames = [
   ['12', '48', '6', '42'],
   ['24', '96', '14', '88'],
@@ -342,81 +339,93 @@ export function HomeContent() {
   const { lang } = useLanguage();
   const c = copy[lang];
   const [statIndex, setStatIndex] = useState(0);
-  const [chipIndex, setChipIndex] = useState(0);
   const [compareIndex, setCompareIndex] = useState(0);
   const matchupCount = c.matchups.length;
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const t = setInterval(() => setStatIndex((i) => (i + 1) % statFrames.length), 3000);
-    const ci = setInterval(() => setChipIndex((i) => (i + 1) % techniqueChips.length), 2200);
     const cmp = setInterval(() => setCompareIndex((i) => (i + 1) % matchupCount), 5000);
-    return () => { clearInterval(t); clearInterval(ci); clearInterval(cmp); };
+    return () => { clearInterval(t); clearInterval(cmp); };
   }, [matchupCount]);
 
   const currentStat = statFrames[statIndex]!;
-  const currentChip = techniqueChips[chipIndex]!;
   const currentMatchup = c.matchups[compareIndex]!;
 
+  const scrollTo = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const navLinks = [
+    { id: 'system', label: c.productTag },
+    { id: 'features', label: c.featuresTag },
+    { id: 'pricing', label: c.pricingTag },
+    { id: 'faq', label: c.faqTag },
+  ];
+
   return (
-    <main>
+    <main className="scroll-main">
       {/* ---------- HERO ---------- */}
-      <section className="hero-section relative isolate overflow-hidden">
-        <div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" />
-        <div className="mx-auto grid max-w-[1440px] items-start gap-14 px-5 pb-32 pt-16 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:pb-48 lg:pt-24">
-          <div className="relative z-10">
+      <section
+        id="hero"
+        className="hero-section relative isolate scroll-snap-section"
+      >
+        <div className="absolute inset-0 z-0">
+          <img
+            src={asset('/assets/hero-athlete.png')}
+            alt={lang === 'fr' ? 'Athlète de taekwondo en action' : 'Taekwondo athlete in action'}
+            className="hero-bg"
+            loading="eager"
+            draggable="false"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07090f] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative z-10 flex flex-col min-h-screen items-start justify-between px-5 sm:px-6 lg:px-12">
+          <header className="mt-6 flex w-full items-center justify-between">
+            <Link href="/" className="group inline-flex items-center gap-2">
+              <span className="text-white font-black text-[14px] italic tracking-[.03em]">TKD</span>
+              <span className="text-electric font-black text-[14px] italic tracking-[.03em]">SCORING</span>
+            </Link>
+            <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-white/50">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className="nav-link-scroll hover:text-white transition-colors"
+                  onClick={() => scrollTo(link.id)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a href={downloadUrl} className="button-primary text-xs px-4 py-2">{c.download}</a>
+            </nav>
+          </header>
+
+          <div className="flex-grow flex flex-col justify-center z-10">
             <p className="eyebrow hero-enter"><span />{c.eyebrow}</p>
-            <div className="flex items-center gap-3 mb-2 hero-enter hero-delay-one">
-              <span className="pro-badge animate-pro-pulse">{c.pro}</span>
-              <span className="text-xs font-semibold uppercase tracking-widest text-white/40">{c.proSub}</span>
-            </div>
             <h1 className="hero-title hero-enter hero-delay-one"><span>{c.heroA}</span><span className="hero-gradient">{c.heroB}</span></h1>
-            <p className="hero-intro hero-enter hero-delay-two">{c.intro}</p>
+            <p className="hero-intro hero-enter hero-delay-two mt-4 max-w-[620px]">{c.intro}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap hero-enter hero-delay-two">
               <a className="button-primary" href={downloadUrl}>{c.download}<Download className="size-4" /></a>
               <a className="button-secondary" href={androidDownloadUrl}>{c.android}<Smartphone className="size-4" /></a>
-              <a className="button-secondary" href="#features">{c.demo}<ArrowRight className="size-4" /></a>
+              <a className="button-secondary" href="#system">{c.demo}<ArrowRight className="size-4" /></a>
             </div>
-            <p className="mt-4 text-[10px] font-medium uppercase tracking-[.14em] text-white/35">{c.v}</p>
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">{c.proof.map((item) => (
-              <span className="proof-item" key={item}><Check className="size-3.5" />{item}</span>
-            ))}</div>
-          </div>
-          <div className="hero-enter hero-delay-two relative z-10">
-            <div className="scoreboard-card">
-              <div className="scoreboard-header">
-                <span className="scoreboard-round">R<span className="animate-round-pulse">1</span> · ROUND 1 / 3</span>
-                <span className="scoreboard-time animate-count"><span id="hero-time">1:52</span></span>
-                <span className="scoreboard-live"><span className="live-dot" />LIVE</span>
-              </div>
-              <div className="scoreboard-body">
-                <div className="scoreboard-corner scoreboard-blue">
-                  <span className="corner-label">BLUE · MAR</span>
-                  <strong className="scoreboard-number animate-score">06</strong>
-                  <span className="scoreboard-athlete">Rachid A.</span>
-                </div>
-                <div className="scoreboard-center">
-                  <span className="match-label">MOROCCO OPEN · MAT 01</span>
-                  <div className="round-dots"><i className="active" /><i /><i /></div>
-                </div>
-                <div className="scoreboard-corner scoreboard-red">
-                  <span className="corner-label">RED · FRA</span>
-                  <strong className="scoreboard-number animate-score">04</strong>
-                  <span className="scoreboard-athlete">M. Laurin</span>
-                </div>
-              </div>
-              <div className="scoreboard-events">
-                <span className="flex items-center gap-2"><Activity className="size-3" />{currentChip}</span>
-                <span className="scoreboard-judges">J1 · J2 · J3</span>
-              </div>
+            <p className="mt-6 text-[10px] font-medium uppercase tracking-[.14em] text-white/40">{c.v}</p>
+            <div className="mt-6 flex items-center gap-2 text-white/50 text-[10px] uppercase tracking-widest font-semibold">
+              <span>{c.stats[0][0]}</span><span className="w-px h-3 bg-white/30 mx-1" /><span>{c.stats[0][1]}</span>
+              <span className="w-px h-3 bg-white/30 mx-1" /><span>{c.stats[2][0]}</span>
+              <span className="w-px h-3 bg-white/30 mx-1" /><span>{c.stats[3][0]}</span>
             </div>
           </div>
+
+          <div className="mb-10 scroll-cue"><MousePointer2 className="size-3.5" />{c.scroll}</div>
         </div>
-        <div className="scroll-cue"><MousePointer2 className="size-3.5" />{c.scroll}</div>
       </section>
 
       {/* ---------- STATS ---------- */}
-      <section className="stats-section border-y border-white/[.06]">
+      <section id="stats" className="stats-section border-y border-white/[.06] scroll-snap-section">
         <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-12">
           <p className="eyebrow text-center"><span />{c.statsLabel}</p>
           <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">{c.stats.map(([label], i) => (
@@ -429,7 +438,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- PRODUCT ---------- */}
-      <section id="system" className="section-shell scroll-mt-24">
+      <section id="system" className="section-shell scroll-mt-24 scroll-snap-section">
         <div className="section-heading split-heading"><div><p className="eyebrow"><span />{c.productTag}</p><h2>{c.productTitle}</h2></div><div><p>{c.productText}</p><ul className="check-list">{c.productPoints.map((item) => <li key={item}><Check />{item}</li>)}</ul></div></div>
         <div className="browser-frame product-shot reveal-view">
           <div className="browser-bar"><div><i /><i /><i /></div><span>TKD SCORING · TOURNAMENT CONTROL</span><span className="browser-status"><i />LOCAL</span></div>
@@ -439,7 +448,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- FEATURES ---------- */}
-      <section id="features" className="section-shell border-t border-white/[.07]">
+      <section id="features" className="section-shell border-t border-white/[.07] scroll-snap-section">
         <div className="section-heading centered-heading"><p className="eyebrow justify-center"><span />{c.featuresTag}</p><h2>{c.featuresTitle}</h2></div>
         <div className="feature-grid">{c.features.map(([title, text], index) => {
           const Icon = [Trophy, Smartphone, Monitor, WifiOff, History, FileChartColumn][index]!;
@@ -456,7 +465,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- STEPS ---------- */}
-      <section className="steps-section">
+      <section id="steps" className="steps-section scroll-snap-section">
         <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="section-heading centered-heading mb-12"><p className="eyebrow justify-center"><span />{c.stepsTag}</p><h2>{c.stepsTitle}</h2><p className="mt-6 text-center max-w-2xl mx-auto text-white/50">{c.stepsText}</p></div>
           <div className="step-grid">{c.steps.map(([title, text], index) => {
@@ -474,7 +483,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- COMPARISON ---------- */}
-      <section id="comparison" className="section-shell border-t border-white/[.07]">
+      <section id="comparison" className="section-shell border-t border-white/[.07] scroll-snap-section">
         <div className="section-heading centered-heading"><p className="eyebrow justify-center"><span />{c.compareTag}</p><h2>{c.compareTitle}</h2><p className="mt-6 text-center max-w-2xl mx-auto text-white/50">{c.compareText}</p></div>
         <div className="mx-auto max-w-5xl">
           <div className="comparison-card">
@@ -510,7 +519,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- GALLERY ---------- */}
-      <section className="gallery-section border-y border-white/[.06]">
+      <section id="gallery" className="gallery-section border-y border-white/[.06] scroll-snap-section">
         <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="section-heading centered-heading mb-12"><p className="eyebrow justify-center"><span />{c.galleryTag}</p><h2>{c.galleryTitle}</h2><p className="mt-6 text-center max-w-2xl mx-auto text-white/50">{c.galleryText}</p></div>
           <div className="gallery-grid">
@@ -525,7 +534,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- REVIEWS ---------- */}
-      <section className="reviews-section">
+      <section id="reviews" className="reviews-section scroll-snap-section">
         <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="section-heading centered-heading mb-12"><p className="eyebrow justify-center"><span />{c.reviewsTag}</p><h2>{c.reviewsTitle}</h2></div>
           <div className="reviews-grid">{c.reviews.map((review) => (
@@ -539,7 +548,7 @@ export function HomeContent() {
       </section>
 
       {/* ---------- PRICING ---------- */}
-      <section id="pricing" className="pricing-section">
+      <section id="pricing" className="pricing-section scroll-snap-section">
         <div className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
           <div className="section-heading centered-heading mb-14"><p className="eyebrow justify-center"><span />{c.pricingTag}</p><h2>{c.pricingTitle}</h2><p className="mt-6 text-center max-w-2xl mx-auto text-white/50">{c.pricingText}</p></div>
           <div className="pricing-grid">
@@ -563,12 +572,12 @@ export function HomeContent() {
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section className="section-shell border-t border-white/[.07]">
+      <section id="faq" className="section-shell border-t border-white/[.07] scroll-snap-section">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[.65fr_1.35fr]"><div><p className="eyebrow"><span />{c.faqTag}</p><h2 className="section-title !text-4xl sm:!text-5xl">{c.faqTitle}</h2></div><div className="faq-list">{c.faqs.map(([question, answer], index) => <details key={question} open={index === 0}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div>
       </section>
 
       {/* ---------- FINAL CTA ---------- */}
-      <section className="final-cta"><div className="final-cta-grid" /><div className="relative z-10 mx-auto max-w-4xl"><p className="eyebrow justify-center"><span />{c.finalTag}</p><h2>{c.finalTitle}</h2><p>{c.finalText}</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a className="button-primary" href={downloadUrl}>{c.download}<Download className="size-4" /></a><Link className="button-secondary" href="/guide/">{c.guide}<ArrowUpRight className="size-4" /></Link></div></div><ShieldCheck className="final-watermark" /></section>
+      <section id="final" className="final-cta scroll-snap-section"><div className="final-cta-grid" /><div className="relative z-10 mx-auto max-w-4xl"><p className="eyebrow justify-center"><span />{c.finalTag}</p><h2>{c.finalTitle}</h2><p>{c.finalText}</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a className="button-primary" href={downloadUrl}>{c.download}<Download className="size-4" /></a><Link className="button-secondary" href="/guide/">{c.guide}<ArrowUpRight className="size-4" /></Link></div></div><ShieldCheck className="final-watermark" /></section>
     </main>
   );
 }
