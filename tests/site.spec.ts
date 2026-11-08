@@ -1,24 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { androidChecksum, androidDownloadUrl, checksum, desktopVersion, downloadUrl } from '../lib/site';
 
-test('product page presents the actual system and interactive score preview', async ({ page }) => {
+test('product page presents the system without hero banner', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Every point. One source of truth.' })).toBeVisible();
-  await expect(page.getByLabel('Animated scoreboard preview')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'A complete tournament, not a disconnected scoring remote.' })).toBeVisible();
   await expect(page.locator('img[alt="Actual TKD Scoring tournament dashboard"]')).toBeVisible();
   await expect(page.locator('img[alt="Actual mobile judge controller"]')).toBeVisible();
-  const score = page.locator('.score-blue .score-number');
-  await expect(score).toHaveText('05');
-  await page.getByRole('button', { name: 'Next exchange' }).click();
-  await expect(score).toHaveText('06');
   await expect(page.locator('img').evaluateAll((images) => (images as HTMLImageElement[]).every((image) => image.complete && image.naturalWidth > 0))).toBeTruthy();
 });
 
 test('Android validation install is linked without replacing the Windows package', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('link', { name: 'Install Android (validation)', exact: true })).toHaveAttribute('href', androidDownloadUrl);
-  await expect(page.getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
   await page.goto('android/');
+  await expect(page.getByRole('link', { name: 'Download Android APK', exact: true })).toHaveAttribute('href', androidDownloadUrl);
   await expect(page.getByRole('heading', { name: 'Install TKD Scoring on Android.' })).toBeVisible();
   await expect(page.getByText(/universal ARM \(32-bit \+ 64-bit\)/)).toBeVisible();
   await expect(page.getByText(/adds side-specific Instant Video Replay/)).toBeVisible();
@@ -34,7 +27,7 @@ test('Android validation install is linked without replacing the Windows package
 test('French language persists across product and guide pages', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'FR', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Chaque point. Une seule source de vérité.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Un tournoi complet, pas une simple télécommande de score.' })).toBeVisible();
   await page.goto('guide/');
   await expect(page.getByRole('heading', { name: 'Du téléchargement au premier match.' })).toBeVisible();
   await expect(page.getByRole('heading', { name: '8. Résoudre un timeout téléphone' })).toBeVisible();
@@ -76,8 +69,7 @@ test('subscription validates details and prepares real WhatsApp and email reques
 
 test('v1.2.3 downloads and paid activation guidance stay consistent', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true }).first()).toHaveAttribute('href', downloadUrl);
-  await expect(page.getByText(`Desktop v${desktopVersion} · Windows 10/11 x64`)).toBeVisible();
+  await expect(page.locator('main').getByRole('link', { name: 'Download for Windows', exact: true })).toHaveAttribute('href', downloadUrl);
 
   await page.goto('guide/');
   await expect(page.getByRole('link', { name: `Download v${desktopVersion}`, exact: true })).toHaveAttribute('href', downloadUrl);

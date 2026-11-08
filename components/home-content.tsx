@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, Download, FileChartColumn, History, Monitor, MousePointer2, Network, ShieldCheck, Smartphone, Trophy, WifiOff, Zap } from 'lucide-react';
-import { ScorePreview } from './score-preview';
+import { ArrowRight, ArrowUpRight, Check, ChevronRight, Download, FileChartColumn, History, Monitor, Network, ShieldCheck, Smartphone, Trophy, WifiOff, Zap } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
-import { androidDownloadUrl, asset, desktopVersion, downloadUrl } from '@/lib/site';
+import { asset, desktopVersion, downloadUrl } from '@/lib/site';
 import { plans } from '@/lib/plans';
 
 const copy = {
@@ -147,26 +146,6 @@ export function HomeContent() {
   const { lang } = useLanguage();
   const c = copy[lang];
   return <main>
-    <section className="hero-section">
-      <div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" />
-      <div className="mx-auto grid max-w-[1440px] items-center gap-14 px-5 pb-20 pt-16 sm:px-8 lg:grid-cols-[.88fr_1.12fr] lg:px-12 lg:pb-28 lg:pt-24">
-        <div className="relative z-10">
-          <p className="eyebrow hero-enter"><span />{c.eyebrow}</p>
-          <h1 className="hero-title hero-enter hero-delay-one"><span>{c.heroA}</span><span className="hero-gradient">{c.heroB}</span></h1>
-          <p className="hero-intro hero-enter hero-delay-two">{c.intro}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap hero-enter hero-delay-two">
-            <a className="button-primary" href={downloadUrl}>{c.download}<Download className="size-4" /></a>
-            <a className="button-secondary" href={androidDownloadUrl}>{c.android}<Smartphone className="size-4" /></a>
-            <a className="button-secondary" href="#system">{c.explore}<ArrowDown className="size-4" /></a>
-          </div>
-          <p className="mt-4 text-[10px] font-medium uppercase tracking-[.14em] text-white/35">{c.v}</p>
-          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2">{c.proof.map((item) => <span className="proof-item" key={item}><Check className="size-3.5" />{item}</span>)}</div>
-        </div>
-        <div className="hero-enter hero-delay-two"><ScorePreview /></div>
-      </div>
-      <div className="scroll-cue"><MousePointer2 className="size-3.5" />{c.scroll}</div>
-    </section>
-
     <section id="system" className="section-shell scroll-mt-24">
       <div className="section-heading split-heading"><div><p className="eyebrow"><span />{c.productTag}</p><h2>{c.productTitle}</h2></div><div><p>{c.productText}</p><ul className="check-list">{c.productPoints.map((item) => <li key={item}><Check />{item}</li>)}</ul></div></div>
       <div className="browser-frame product-shot reveal-view">
