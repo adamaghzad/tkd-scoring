@@ -1,4 +1,4 @@
 :HL["/tkd-scoring/_next/static/chunks/3fmj79e5rc6xb.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"subscription","h":96,"c":"$Q2"}]]
-0:{"b":"4EDX9agU8ia9yhrXBBTRK","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"JJNESHSm7xLkN5Prw1ECu","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
