@@ -1,0 +1,3 @@
+:HL["/tkd-scoring/_next/static/chunks/3fmj79e5rc6xb.css","style"]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"4EDX9agU8ia9yhrXBBTRK","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
