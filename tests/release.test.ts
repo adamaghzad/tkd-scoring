@@ -3,9 +3,9 @@ import { androidChecksum, androidChecksumUrl, androidDownloadUrl, androidRelease
 
 describe('desktop release metadata', () => {
   it('points every public download to the licensed Windows release', () => {
-    expect(desktopVersion).toBe('1.2.11');
-    expect(releaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v1.2.11');
-    expect(downloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/desktop-v1.2.11/TKD-Scoring-Windows-x64.zip');
+    expect(desktopVersion).toBe('1.2.12');
+    expect(releaseUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v1.2.12');
+    expect(downloadUrl).toBe('https://github.com/adamaghzad/TKDtech/releases/download/desktop-v1.2.12/TKD-Scoring-Windows-x64.zip');
     expect(checksumUrl).toBe(`${downloadUrl}.sha256`);
     expect(checksum).toMatch(/^[a-f0-9]{64}$/);
   });
