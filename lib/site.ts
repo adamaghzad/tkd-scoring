@@ -2,17 +2,17 @@ export const siteUrl = 'https://adamaghzad.github.io/tkd-scoring';
 export const basePath = process.env.NODE_ENV === 'production' ? '/tkd-scoring' : '';
 export function asset(path: string) { return `${basePath}${path}`; }
 export const appUrl = 'https://p01--tkd-scoring--krbhnw2hlgh6.code.run';
-export const desktopVersion = '1.2.14';
+export const desktopVersion = '1.2.15';
 export const releaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v${desktopVersion}`;
 export const downloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/desktop-v${desktopVersion}/TKD-Scoring-Windows-x64.zip`;
 export const checksumUrl = `${downloadUrl}.sha256`;
-export const checksum = '9e9ab6432b06ac9488cb3267076bb5ed951e5b581a38d96d9c86bf3781a3192a';
-export const androidVersion = '0.1.14-validation';
+export const checksum = '0ef29db90a6e90fc42a469a3cec688e8fdfd5290c45a59dc7dc11c87f5a703bf';
+export const androidVersion = '0.1.15-validation';
 export const androidApkFilename = 'TKD-Scoring-Android-universal-validation-debug.apk';
 export const androidReleaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/android-v${androidVersion}`;
 export const androidDownloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/android-v${androidVersion}/${androidApkFilename}`;
 export const androidChecksumUrl = `${androidDownloadUrl}.sha256`;
-export const androidChecksum = '8765780c4cd0632cd9a4db11666ab8ab0fdbce950c1dcc5f1b757c36cb3d4858';
+export const androidChecksum = '98d773058b12cdee11b99346779ba277d55232576a2506e10ff5b40f6b1abbc4';
 export const salesEmail = 'adam.aghzaf@gmail.com';
 export const salesWhatsApp = '212614192699';
 
