@@ -1,3 +1,3 @@
 :HL["/tkd-scoring/_next/static/chunks/3fmj79e5rc6xb.css","style"]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"L_2kmBy51EBVrNf3sgnAu","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"yu4PwmDEdhoji4hj6etvD","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
