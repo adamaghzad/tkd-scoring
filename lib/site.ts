@@ -2,11 +2,11 @@ export const siteUrl = 'https://adamaghzad.github.io/tkd-scoring';
 export const basePath = process.env.NODE_ENV === 'production' ? '/tkd-scoring' : '';
 export function asset(path: string) { return `${basePath}${path}`; }
 export const appUrl = 'https://p01--tkd-scoring--krbhnw2hlgh6.code.run';
-export const desktopVersion = '1.2.26';
+export const desktopVersion = '1.2.27';
 export const releaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/desktop-v${desktopVersion}`;
 export const downloadUrl = `https://github.com/adamaghzad/TKDtech/releases/download/desktop-v${desktopVersion}/TKD-Scoring-Windows-x64.zip`;
 export const checksumUrl = `${downloadUrl}.sha256`;
-export const checksum = '5a72330ad67f5f06ccc0f9240951466fc0d99a78bb9c84f6a3e763f26f9941fe';
+export const checksum = '925699f00d5ba78fb061c6ff60d5fa426e8fdaadbdcce3d0d572b99c054d2975';
 export const androidVersion = '0.1.23-validation';
 export const androidApkFilename = 'TKD-Scoring-Android-universal-validation-debug.apk';
 export const androidReleaseUrl = `https://github.com/adamaghzad/TKDtech/releases/tag/android-v${androidVersion}`;
